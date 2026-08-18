@@ -1,0 +1,294 @@
+/* 전체 기본 설정 */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+
+  color: #222;
+  background: #f7f8fa;
+
+  font-family: Arial, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+
+/* 상단 헤더 */
+.header {
+  display: flex;
+  align-items: center;
+
+  height: 64px;
+  padding: 0 40px;
+
+  background: #fff;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.logo {
+  color: #2563eb;
+
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.nav {
+  display: flex;
+  gap: 25px;
+
+  margin-left: 50px;
+}
+
+.nav a {
+  color: #555;
+}
+
+.nav a:hover {
+  color: #2563eb;
+}
+
+.header-actions {
+  display: flex;
+  gap: 15px;
+
+  margin-left: auto;
+}
+
+.signup {
+  padding: 8px 14px;
+
+  border-radius: 6px;
+
+  background: #2563eb;
+  color: #fff;
+}
+
+
+/* 메인 영역 */
+.container {
+  width: 100%;
+  max-width: 1000px;
+
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+
+/* 소개 영역 */
+.hero {
+  padding: 60px 50px;
+
+  background: #fff;
+  border-radius: 12px;
+}
+
+.category {
+  color: #2563eb;
+
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.hero h1 {
+  margin: 15px 0;
+
+  font-size: 36px;
+  line-height: 1.3;
+}
+
+.hero p {
+  color: #666;
+
+  line-height: 1.7;
+}
+
+.hero-links {
+  display: flex;
+  gap: 15px;
+
+  margin-top: 25px;
+}
+
+.hero-links a:first-child {
+  padding: 10px 16px;
+
+  border-radius: 6px;
+
+  background: #2563eb;
+  color: #fff;
+}
+
+
+/* 섹션 */
+.posts,
+.resources {
+  margin-top: 40px;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 15px;
+}
+
+.section-header h2 {
+  margin: 0;
+}
+
+.section-header a {
+  color: #2563eb;
+  font-size: 14px;
+}
+
+
+/* 게시글 */
+.post {
+  padding: 22px;
+
+  background: #fff;
+  border-bottom: 1px solid #eee;
+}
+
+.post:first-of-type {
+  border-radius: 8px 8px 0 0;
+}
+
+.post:last-child {
+  border-radius: 0 0 8px 8px;
+}
+
+.post-title {
+  display: block;
+
+  margin-bottom: 10px;
+
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.post-title:hover {
+  color: #2563eb;
+}
+
+.post p {
+  margin: 0 0 12px;
+
+  color: #666;
+  line-height: 1.6;
+}
+
+.post-info {
+  display: flex;
+  gap: 8px;
+
+  color: #999;
+
+  font-size: 13px;
+}
+
+.post-info a:hover {
+  color: #2563eb;
+}
+
+
+/* 추천 자료 */
+.resource-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 15px;
+}
+
+.resource {
+  padding: 20px;
+
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 8px;
+}
+
+.resource strong,
+.resource span {
+  display: block;
+}
+
+.resource strong {
+  margin-bottom: 8px;
+}
+
+.resource span {
+  color: #777;
+  font-size: 13px;
+}
+
+.resource:hover {
+  border-color: #2563eb;
+}
+
+
+/* 하단 */
+.footer {
+  margin-top: 40px;
+  padding: 30px;
+
+  background: #222;
+  color: #fff;
+
+  text-align: center;
+}
+
+.footer nav {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+
+  margin: 15px 0;
+}
+
+.footer nav a {
+  color: #aaa;
+  font-size: 13px;
+}
+
+.footer nav a:hover {
+  color: #fff;
+}
+
+.footer p {
+  margin: 0;
+
+  color: #888;
+  font-size: 12px;
+}
+
+
+/* 모바일 */
+@media (max-width: 700px) {
+
+  .header {
+    padding: 0 20px;
+  }
+
+  .nav {
+    display: none;
+  }
+
+  .hero {
+    padding: 40px 25px;
+  }
+
+  .hero h1 {
+    font-size: 28px;
+  }
+
+  .resource-list {
+    grid-template-columns: 1fr;
+  }
+}
