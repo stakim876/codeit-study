@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevTalk | 최신 게시글</title>
+     <link rel="stylesheet" href="../../02-css/01-css-basic/style.css" />
+</head>
+<body>
+    <header>
+        <a href="#" aria-label="DevTalk 홈">
+            <strong>DavTalk</strong>
+        </a>
+
+        <!-- 서비스 주요 메뉴 -->
+         <nav aria-label="주요 메뉴"></nav>
+         <ul>
+            <li><a href="#">홈</a></li>
+            <li><a href="#">탐색</a></li>
+            <li><a href="#">알림</a></li>
+            <li><a href="#">메시지</a></li>
+            <li><a href="#">프로필</a></li>
+         </ul>
+        </nav>
+
+        <button type="button">게시하기</button>
+    </header>
+
+    <main>
+        <!-- 사용자가 작성한 게시글 영역 -->
+         <section aria-labelledby="feed-title">
+            <header>
+                <h1 id="feed-title">최신 게시글</h1>
+
+                <p>
+                    개발자들이 공유한 최신 이야기를 확인해 보세요.
+                </p>
+            </header>
+
+            <!-- 정적으로 작성된 첫 번째 게시글 -->
+             <article>
+                <header>
+                    <div>
+                        <strong>김승태</strong>
+                        <span>@seungtae_dev</span>
+                    </div>
+
+                    <time datetime="2026-08-12T14:20">
+                        2시간 전
+                    </time>
+                </header>
+
+                <P>
+                    오늘 HTML 문서 구조를 공부하면서 
+                    웹 페이지도 결국 콘텐츠와 구조를 명확하게 나누는 것이 중요하다는 
+                    것을 알게 되었다.
+                </P>
+
+                <footer>
+                    <button type="button">댓글 12</button>
+                    <button type="button">공유 5</button>
+                    <button type="button">좋아요 38</button>
+                </footer>
+             </article>
+
+             <!-- 정적으로 작성된 두 번째 게시글 -->
+              <article>
+                <header>
+                    <div>
+                        <strong>Frontend Daily</strong>
+                        <span>@Frontend_daily</span>
+                    </div>
+
+                    <time datetime="2026-08-12T13:05">
+                        3시간 전
+                    </time>
+                </header>
+                    <p>
+                        CSS를 공부할 때 속성 하나하나를 외우기보다
+                        실제 페이지를 레이아웃을 만들어보면서
+                        Flexbox와 Grid를 익히는 것을 추천 합니다.
+                    </p>
+
+                    <footer>
+                        <button type="button">댓글 24</button>
+                        <button type="button">공유 11</button>
+                        <button type="button">좋아요 91</button>
+                    </footer>
+              </article>
+
+              <!-- 정적으로 작성된 세 번째 게시글 -->
+               <article>
+                <header>
+                    <div>
+                        <strong>JavaScript korea</strong>
+                        <span>@javascript_kr</span>
+                    </div>
+
+                    <time datetime="2026-08-12T14T11:40">
+                        5시간 전
+                    </time>
+                </header>
+
+                <header>
+
+                    <p>
+                        JavaScript를 배우기 시작 했다면 변수와 조건문만 공부하고 끝 내지 말고
+                        Dom과 이벤트까지 연결해서 직접 화면을 조작해 보는 것이 좋다.
+                    </p>
+
+                    <footer>
+                        <button type="button">댓글 18</button>
+                        <button type="button">공유 8</button>
+                        <button type="button">좋아요 64</button>
+                    </footer>
+               </article>
+         </section>
+
+         <!-- Feed와 별도로 제공되는 부가 정보 -->
+          <aside>
+            <section>
+                <h2>추천 사용자</h2>
+
+                <ul>
+                    <li>
+                        <strong>JavaScript korea</strong>
+                        <span>@javascript_kr</span>
+                        <button type="button">팔로우</button>
+                    </li>
+
+                    <li>
+                        <strong>CSS Daily</strong>
+                        <span>@css_daily</span>
+                        <button type="button">팔로우</button>
+                    </li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>인기 주제</h2>
+
+                <ol>
+                    <li>#JavaScript</li>
+                    <li>#React</li>
+                    <li>#Frontend</li>
+                </ol>
+            </section>
+          </aside>
+    </main>
+
+    <!-- 서비스 하단 정보 -->
+     <footer>
+        <p>© 2026 DevTalk</p>
+
+        <nav aria-label="서비스 정보">
+            <a href="#">이용약관</a>
+            <a href="#">개인정보처리방침</a>
+            <a href="#">도움말</a>
+        </nav>
+     </footer>
+</body>
+</html>

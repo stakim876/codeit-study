@@ -1,0 +1,84 @@
+<!doctype html>
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <title>피드 · 인스타그램</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.2/reset.min.css">
+    <link rel="stylesheet" href="../../02-css/01-css-basic/base.css" />
+    <link rel="stylesheet" href="../../02-css/16-flexbox/layout.css" />
+  </head>
+  <body>
+    <nav>
+      <ul>
+        <li><a href="feed.html">홈</a></li>
+        <li><a href="#">검색</a></li>
+        <li><a href="#">DM</a></li>
+        <li><a href="profile.html">프로필</a></li>
+      </ul>
+    </nav>
+    <h1>안녕</h1>
+    <h2>안녕</h2>
+    <header class="site-header">
+      <nav>
+        <ul class="nav-menu">
+          <li><a href="feed.html">홈</a></li>
+          <li><a href="#">검색</a></li>
+          <li><a href="#">DM</a></li>
+          <li><a href="profile.html">프로필</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <div>
+      <img
+        src="https://picsum.photos/seed/jaehoon/40/40"
+        alt="jaehoon 프로필 사진">
+      <p>jaehoon</p>
+    <main>
+      <article>
+        <header class="post-header">
+          <img src="https://picsum.photos/seed/jaehoon/40/40" alt="jaehoon 프로필 사진" />
+          <p>jaehoon</p>
+          <button type="button" class="more-btn">⋯</button>
+        </header>
+
+      <figure>
+        <img
+          src="https://picsum.photos/seed/post1/600/600"
+          alt="한강에서 찍은 노을 사진">
+        <figcaption>오늘 한강 노을 실화냐 🌇</figcaption>
+      </figure>
+    </div>
+        <figure>
+          <img src="https://picsum.photos/seed/post1/600/600" alt="한강에서 찍은 노을 사진" />
+          <figcaption>오늘 한강 노을 실화냐 🌇</figcaption>
+        </figure>
+
+        <div class="post-actions">
+          <button type="button" class="icon-btn">♡</button>
+          <button type="button" class="icon-btn">💬</button>
+          <button type="button" class="icon-btn">↗</button>
+        </div>
+
+        <div class="hashtags">
+          <span class="hashtag-chip">#한강</span>
+          <span class="hashtag-chip">#노을</span>
+          <span class="hashtag-chip">#일상</span>
+        </div>
+
+        <footer>
+          <form class="comment-form" action="#" method="post">
+            <label for="comment" class="sr-only">댓글 달기</label>
+            <textarea id="comment" name="comment" rows="2" placeholder="댓글 달기..."></textarea>
+            <button type="submit" class="btn-primary">게시</button>
+          </form>
+        </footer>
+      </article>
+    </main>
+  </body>
+</html>
