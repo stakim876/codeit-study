@@ -1,0 +1,366 @@
+/* 전체 요소 기본 설정 */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+
+  background-color: #f5f5f5;
+  color: #222;
+
+  font-family: Arial, sans-serif;
+}
+
+
+/* 상단 영역 */
+body > header {
+  width: 700px;
+
+  margin: 50px auto 30px;
+
+  text-align: center;
+}
+
+body > header h1 {
+  margin: 0 0 10px;
+
+  color: #e60012;
+
+  font-size: 36px;
+}
+
+body > header p {
+  margin: 0;
+
+  color: #777;
+
+  font-size: 14px;
+}
+
+
+/* 메인 영역 */
+main {
+  width: 700px;
+
+  margin: 0 auto;
+
+  background-color: #fff;
+
+  border: 1px solid #ddd;
+  border-radius: 8px;
+
+  overflow: hidden;
+}
+
+
+/* 상품 영역 */
+.product {
+  display: flex;
+
+  gap: 30px;
+
+  padding: 30px;
+
+  border-bottom: 1px solid #eee;
+}
+
+
+/* 상품 이미지 */
+.product-image {
+  display: flex;
+
+  width: 240px;
+  height: 240px;
+
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  background-color: #f7f7f7;
+
+  border: 1px solid #eee;
+  border-radius: 6px;
+
+  color: #999;
+
+  font-size: 14px;
+}
+
+
+/* 상품 정보 */
+.product-info {
+  flex: 1;
+}
+
+.product-category {
+  margin: 0 0 10px;
+
+  color: #777;
+
+  font-size: 13px;
+}
+
+.product-info h2 {
+  margin: 0 0 15px;
+
+  font-size: 22px;
+}
+
+.product-description {
+  margin: 0 0 20px;
+
+  color: #666;
+
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+
+/* 상품 가격 */
+.product-price {
+  margin: 0 0 10px;
+
+  font-size: 18px;
+}
+
+.product-price strong {
+  font-size: 28px;
+}
+
+.delivery {
+  margin: 0;
+
+  color: #555;
+
+  font-size: 13px;
+}
+
+
+/* 구매 영역 */
+.purchase {
+  padding: 30px;
+
+  border-bottom: 1px solid #eee;
+}
+
+.purchase h2 {
+  margin: 0 0 20px;
+
+  font-size: 18px;
+}
+
+
+/* 구매 버튼 그룹 */
+.button-group {
+  display: flex;
+
+  gap: 10px;
+}
+
+
+/* 버튼 공통 */
+button {
+  border: 0;
+
+  border-radius: 6px;
+
+  font-size: 15px;
+  font-weight: bold;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s,
+    transform 0.1s;
+}
+
+
+/* 장바구니 버튼 */
+.btn-cart {
+  flex: 1;
+
+  padding: 14px;
+
+  background-color: #fff;
+
+  border: 1px solid #aaa;
+
+  color: #333;
+}
+
+.btn-cart:hover {
+  background-color: #f5f5f5;
+}
+
+
+/* 바로구매 버튼 */
+.btn-buy {
+  flex: 1;
+
+  padding: 14px;
+
+  background-color: #e60012;
+
+  color: #fff;
+}
+
+.btn-buy:hover {
+  background-color: #c90010;
+}
+
+.btn-buy:active {
+  transform: scale(0.98);
+}
+
+
+/* 찜하기 버튼 */
+.btn-wishlist {
+  width: 100%;
+
+  margin-top: 10px;
+
+  padding: 12px;
+
+  background-color: #fff;
+
+  border: 1px solid #ddd;
+
+  color: #555;
+}
+
+.btn-wishlist:hover {
+  background-color: #f8f8f8;
+}
+
+
+/* 버튼 상태 */
+.button-example {
+  padding: 30px;
+
+  border-bottom: 1px solid #eee;
+}
+
+.button-example h2 {
+  margin: 0 0 15px;
+
+  font-size: 18px;
+}
+
+.button-row {
+  display: flex;
+
+  gap: 10px;
+}
+
+
+/* Hover 상태를 고정해서 보여주는 버튼 */
+.btn-hover {
+  background-color: #c90010;
+}
+
+
+/* 비활성화 버튼 */
+button:disabled {
+  background-color: #ccc;
+
+  color: #888;
+
+  cursor: not-allowed;
+}
+
+button:disabled:hover {
+  background-color: #ccc;
+}
+
+
+/* 버튼 크기 */
+.button-size {
+  padding: 30px;
+}
+
+.button-size h2 {
+  margin: 0 0 15px;
+
+  font-size: 18px;
+}
+
+.btn-small {
+  width: auto;
+
+  padding: 8px 14px;
+
+  font-size: 12px;
+}
+
+.btn-large {
+  width: 100%;
+
+  margin-top: 10px;
+
+  padding: 16px;
+
+  font-size: 17px;
+}
+
+
+/* 하단 영역 */
+body > footer {
+  width: 700px;
+
+  margin: 20px auto;
+
+  text-align: center;
+}
+
+body > footer p {
+  margin: 0;
+
+  color: #999;
+
+  font-size: 13px;
+}
+
+
+/* 모바일 화면 */
+@media (max-width: 730px) {
+
+  body > header,
+  main,
+  body > footer {
+    width: calc(100% - 30px);
+  }
+
+  body > header {
+    margin-top: 35px;
+  }
+
+  .product {
+    flex-direction: column;
+
+    padding: 20px;
+  }
+
+  .product-image {
+    width: 100%;
+    height: 220px;
+  }
+
+  .purchase {
+    padding: 20px;
+  }
+
+  .button-example {
+    padding: 20px;
+  }
+
+  .button-row {
+    flex-wrap: wrap;
+  }
+
+  .button-size {
+    padding: 20px;
+  }
+}
