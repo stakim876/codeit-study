@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>배열 추가/삭제</title>
+</head>
+<body>
+    
+    <h1>장바구니</h1>
+
+    <script>
+        <!-- 현재 장바구니에 담겨있는 상품 -->
+        const cart = [
+            "노트북",
+            "무선 키보드"
+        ];
+
+        <!-- 현재 장바구니 확인 -->
+        console.log("현재 장바구니:", cart);
+
+        <!-- push() 배열의 가장 마지막에 새로운 상품을 추가 -->
+        cart.push("마우스");
+
+        <!-- 마우스가 장바구니에 추가된 것을 확인 -->
+        console.log("마우스 추가:", cart);
+
+        <!-- pop() 배열의 가장 마지막 상품을 삭제 -->
+        cart.pop();
+
+        console.log("마지막 상품 삭제:", cart);
+    </script>
+    
+</body>
+</html>

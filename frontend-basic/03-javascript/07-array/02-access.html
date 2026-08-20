@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>배열 접근</title>
+</head>
+<body>
+    
+    <h1>상품 확인</h1>
+
+    <script>
+        <!-- 상품 목록을 배열로 생성 -->
+        const products = [
+            "노트북",
+            "무선 키보드",
+            "마우스",
+            "모니터"
+        ];
+
+        <!-- 배열의 첫 번째 데이터 접근 배열의 순서는 0부터 시작하기 때문에 [0]이 첫 번째 상품 -->
+        console.log("첫 번째 상품:", products[0]);
+
+        <!-- 배열의 마지막 상품에 접근 -->
+        <!-- length는 상품 개수이므로 -1을 해야 마지막 index가 됨 -->
+        console.log(
+            "마지막 상품",
+            products[products.length -1]
+        );
+
+        <!-- 현재 배열에 들어있는 상품의 개수 확인 -->
+        console.log("상품 개수:", products.length);
+    </script>
+
+</body>
+</html>
