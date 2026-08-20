@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Flex Direction</title>
+  <style>
+    .container {
+      border: 4px solid gray;
+      padding: 20px;
+      width: 40%;
+      margin: 20px auto;
+      display: flex;
+      /* 배치 방향 결정 */
+      flex-direction: row; /* row = 가로, column = 세로 */
+      /*flex-wrap: wrap; /* 줄바꿈 허용 */
+    }
+    @media (max-width: 500px) {
+      .container {
+        flex-direction: column;
+      }
+    }
+    .item {
+      width: 33.3%;
+      height: 100px;
+      border: 4px solid red;
+      font-size: 40px;
+      border-radius: 15px;
+      box-sizing: border-box; /* 테두리 포함해서 크기 계산 */
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="item">A</div>
+    <div class="item">B</div>
+    <div class="item">C</div>
+    <div class="item">D</div>
+    <div class="item">E</div>
+    <div class="item">F</div>
+  </div>
+</body>
+</html>

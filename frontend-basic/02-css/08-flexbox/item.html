@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>CSS Align Self</title>
+    <title>CSS Flex Item</title>
     <style>
         .container {
             height: 800px;
@@ -28,13 +28,16 @@
         }
         .item:first-child {
             align-self: flex-end;
+            order: 1;
         }
         .item:nth-child(3) {
             align-self: flex-start;
+            order: 2;
         }
         .item:last-child {
             align-self: stretch;
             height: auto;
+            order : -1;
         }
     </style>
 </head>

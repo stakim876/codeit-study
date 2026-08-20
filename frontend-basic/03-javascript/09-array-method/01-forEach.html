@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>forEach</title>
+</head>
+<body>
+
+    <h1>forEach</h1>
+
+    <script>
+        const products = ["노트북", "무선 키보드", "마우스", "모니터"];
+
+        <!-- forEach는 배열의 각 아이템을 하나씩 꺼내서 실행함 -->
+        products.forEach(function (product) {
+            console.log("상품:", product);
+        });
+
+        products.forEach(function (product, index) {
+            console.log(index + "번째:", product);
+        });
+    </script>
+
+    <script src="./main.js"></script>
+</body>
+</html>
