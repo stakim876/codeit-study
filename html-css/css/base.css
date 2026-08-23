@@ -1,0 +1,41 @@
+section>ul>li {
+  color: violet;
+  font-size: 1.2em;
+}
+
+/* 태그 선택자: 모든 태그에 적용되니까 공통적인것만 넣을 것! */
+input {
+  border: 1px dashed #999;
+  padding: 10px;
+}
+
+button {
+  color: green;
+  background: orange;
+  border-radius: 70px;
+  padding: 5px 10px;
+}
+
+.btn-primary {
+  background: lightblue;
+  color: #fff;
+  border: none;
+  outline: none;
+}
+
+#login-form {
+  /* border: 3px dotted red; */
+}
+
+/* instagram-clone-html-css/css/base.css */
+header nav a {
+  color: #39f600;
+}
+
+header > h1 {
+  color: #e1306c;
+}
+
+label + input {
+  outline: 2px solid #0095f6;
+}
