@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <style>
+    body {
+      margin: 0;
+    }
+    div {
+      width: 100%;
+      border: 2px solid red;
+    }
+    .root {
+      width: 60%;
+    }
+    .parent {
+      width: 50%;
+      border-color: blue;
+    }
+    .child {
+      width: 50%;
+      border-color: green;
+    }
+  </style>
+</head>
+<body>
+  
+  <!-- .root>.parent>.child*2 -->
+  <div class="root">ROOT
+    <div class="parent">PARENT
+      <div class="child">CHILD-1</div>
+      <div class="child">CHILD-2</div>
+    </div>
+  </div>
+</body>
+</html>

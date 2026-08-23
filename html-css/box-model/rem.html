@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <style>
+    html {
+      font-size: 20px;
+      font-family: cursive;
+    }
+    body {
+      font-size: 18px;
+      margin: 0;
+    }
+    div {
+      border: 2px solid rgb(255, 255, 0);
+    }
+    .root {
+      /* 20rem = 200px, 1rem = 10px */
+      width: 20rem;
+    }
+    .parent {
+      border-color: blue;
+      width: 10rem;
+    }
+    .child {
+      border-color: green;
+      width: 5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- .root>.parent>.child*2 -->
+  <div class="root">ROOT
+    <div class="parent">PARENT
+      <div class="child">CHILD-1</div>
+      <div class="child">CHILD-2</div>
+    </div>
+  </div>
+</body>
+</html>
