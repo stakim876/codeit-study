@@ -1,0 +1,48 @@
+/* 홈·검색·DM·프로필이 세로 목록이 아니라 가로 한 줄 */
+
+.nav-menu {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;  
+}
+
+/* 위 메뉴가 스크롤해도 고정. 본문은 padding-top 으로 안 가려짐 */
+
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background-color: #ffffff;
+  border-bottom: 1px solid #dbdbdb;   
+}
+
+.site-header +main {
+  padding-top: 4rem;  
+}
+
+/* 메뉴를 오른쪽 끝에 붙임 */
+
+.nav-menu {
+  justify-content: flex-end;
+  align-items: center;  
+}
+
+/* 메뉴 글자 사이 간격 */
+
+.nav-menu {
+  gap: 1.5rem;  
+}
+
+/* 로그인 폼이 화면 한가운데에 옴 */
+
+.auth-main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-height: calc(100dvh - 12rem);  
+}
+
