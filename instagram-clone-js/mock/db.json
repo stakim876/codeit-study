@@ -115,33 +115,33 @@
       "id": 1,
       "username": "jaehoon",
       "followers": 1240,
-      "following": 318  
+      "following": 318
     },
     {
       "id": 2,
       "username": "yuna",
       "followers": 8500,
-      "following": 402   
+      "following": 402
     },
     {
       "id": 3,
       "username": "minji",
       "followers": 320,
-      "following": 291  
+      "following": 291
     }
   ],
-  "coments": [
+  "comments": [
     {
       "id": 1,
       "postId": 1,
       "username": "minji",
-      "text": "몇 시에 뛰신 거예요?"  
+      "text": "몇 시에 뛰신 거예요?"
     },
     {
       "id": 2,
       "postId": 3,
       "username": "yuna",
-      "text": "이거 실화 맞아요"   
+      "text": "이거 실화 맞아요"
     }
   ]
 }

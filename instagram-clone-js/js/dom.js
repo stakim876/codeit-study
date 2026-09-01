@@ -1,47 +1,100 @@
-console.log(document.title); // "피드 · 인스타그램"
-console.log(document.documentElement.children);
-console.log(document.head.children);
+// instagrem-clon-js/js/dom.js
+const caption = document.querySelector('figcaption');
+console.log('캡션 글자', caption.textContent);
 
-// 숫자로 내려가서 댓글창을 읽음 → value 는 "" (아직 비어 있음)
+const username = document.querySelector('.post-header p');
+console.log('작성자:', username.textContent);
+
+caption.textContent = "새벽 러닝 🌙";
+username.textContent = 'seungtae';
+
+// step2
+
+const homeMenu = document.querySelector('.nav-menu li');
+console.log(homeMenu.textContent);
+console.log(homeMenu.innerHTML);
+
+caption.innerHTML = '<b>굵게</b>';
+console.log('글자로 넣으면:', caption.innerHTML);
+
+caption.innerHTML = '<b>굵게</b>';
+console.log('태그로 넣으면:', caption.textContent);
+
+console.log('자식 태그:', caption.firstChild.nodeName);
+
+// step3
+const comment =
+'<img src="없는파일" onerror="console.log(\'남의 코드가 돌았다\')">';
+
+// caption.innerHTML = comment;
+
+// step4
+const photo = document.querySelector('figure img');
+console.log(photo.getAttribute('alt'));
 console.log(
-  document.body.children[1].children[0].children[4].children[0].children[1]
-    .value,  
+  document.querySelector('.post-actions').children[1].getAttribute('src'),
 );
-// 값을 넣으면 → 화면 댓글창에 "하하호호후후" 가 보임
-document.body.children[1].children[0].children[4].children[0].children[1].value = 
-  '하하호호후후';
 
-  const tetarea = document.querySelector('body form > #comment');
-  console.log('찾은 태그: ', tetarea); // 같은 댓글창 <textarea>
+photo.setAttribute(
+  'src',
+  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVTQySOMYofWD4gd7oyenqLBozcGn9NGicI9iTYXDNfw&s=10',
+);
 
-  const header = document.querySelector('.post-header');
-  console.log('찾은 것:', header?.tagName); // "HEADER"
+photo.setAttribute('alt', '귀여운 상어 사진');
 
-  const again = document.querySelector(' .post-header');
-  console.log('두 번 찾으면 같은 것인가', header === again); // true  같은 태그
+photo.setAttribute('alt', '상어는 넘무 기여워~~~');
 
-  const buttons = [...document.querySelectorAll('button')]; // 버튼 5개 (⋯, ♡, 💬, ↗, 게시)
+const more = document.document.querySelector('.more-btn');
+console.log('type 속성이 있나:', more.hasAttribute('type'));
+more.removeAtteribute('type');
+console.log('떼고 나면:', more.hasAttribute('type'));
 
-  console.log([10, 20, 30]);
-  console.log({
-    0: '짜장면',
-    1: '짬뽕',
-    2: '볶음밥',
-    lenght: 3
+// step5
+console.log(more.getAttribute('class'));
+
+const label= document.querySelector('.sr-only');
+console.log('라벨 글자:', label.textContent);
+console.log('sr-only 가 붙어 있나:', label.classList.contains('sr-only'));
+
+console.log('화면에서 차지하는 너비:', label.offsetwidth);
+
+label.classList.add('sr-only');
+console.log('클래스를 뗀 뒤 1픽셀보다 넓은가:', label.offsetwidth > 1);
+
+label.classList.add('sr-only');
+console.log('다시 붙인 뒤 너비:', label.offsetwidth);
+
+const chip = document.querySelector('.hashtag-chip');
+
+chip.addEventListener('click', () =>{
+  chip.classList.toggle('my-chip');
+});
+
+// step7
+// article 태그, post: 피드게시물 1개의 데이터
+const fillPost = (article, post) => {
+  article.querySelector('.post-header p').textContent = post.username;
+
+  const avatar = article.querySelector('.post-header img');
+  avatar.setAttribute(
+    'sec',
+     `https://picsum.photos/seed/${post.username}/40/40`,
+  );
+  avatar.setAttribute('alt', `${post.username} 프로필 사진`);
+
+  const photo = article.querySelector('figure img');
+  photo.setAttribute('src', post.image);
+  photo.setAttribute('alt', post.alt);
+
+  article.querySelector('figcaption').textContent = post.caption;
+
+  article.querySelectorAll('.hashtag-chip').forEach((chip, index) => {
+    chip.textContent = '#${post.hashtags[index]}';
   });
+};
 
-  const buttonArray = [...buttons];
+const card = document.querySelector('article');
+fillPost(card, renked[3]);
 
-  console.log(buttons);
-  console.log(buttonArray);
 
-  // button 이 없어서 여기서 에러 → 아래 줄은 실행 안 됨
-  console.log('찾은 개수', button.lenght);
-  console.log('첫 번째', button[0]. tagName);
-  console.log('map 이 있나', typeof buttons.map);
-  console.log('forEach 는', typeof buttons.forEach);
 
-  const actions = document.querySelector(".post-actions");
-
-  console.log("화면 전체 버튼", document.querySelectorAll("button").length);
-  console.log("이 줄 안의 버튼", actions.querySelectorAll("button").length);
