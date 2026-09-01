@@ -1,15 +1,13 @@
-// 피드 페이지가 열리면 이 배열이 메모리에 만들어짐
-// posts.lenght -> 8 글 8개가 준비된 상태
-// 아직 화면에 그리는 코드는 없어서, 보이는 건 HTML에 박힌 게시물 1개뿐
+// instagram-clone-js/js/feed.js
 const posts = [
   {
     id: 1,
-    username: "yuna", // posts[0].username -> "yuna" 첫 글 작성자
+    username: "yuna",
     caption: "새벽 러닝 🌙",
-    likes: 2100, // pots[0].likes -> 2100 좋아요 숫자
+    likes: 2100,
     image: "https://picsum.photos/seed/post4/600/600",
     alt: "새벽 한강 산책로 사진",
-    location: { name: "여의도한강공원", city: "서울" }, // posts[0].location.city -> "서울"
+    location: { name: "여의도한강공원", city: "서울" },
     hashtags: ["새벽러닝", "한강", "러닝스타그램"],
   },
   {
@@ -19,25 +17,25 @@ const posts = [
     likes: 88,
     image: "https://picsum.photos/seed/post5/600/600",
     alt: "가로등이 켜진 밤길 사진",
-    hashtags: ["밤산책"], // location 없음 -> posts[1].location 은 underfind
+    hashtags: ["밤산책"],
   },
   {
     id: 3,
     username: "jaehoon",
     caption: "오늘 한강 노을 실화냐 🌇",
-    likes: 1240, // 1000 이상이라 인기글
+    likes: 1240,
     image: "https://picsum.photos/seed/post1/600/600",
     alt: "한강에서 찍은 노을 사진",
-    hashtags: ["한강", "노을", "서울"],
+    hashtags: ["한강", "노을", "서울", "실화냐"],
   },
   {
     id: 4,
     username: "minji",
     caption: "새로 생긴 카페 ☕",
-    likes: 0, // 좋아요 없음
+    likes: 0,
     image: "https://picsum.photos/seed/post2/600/600",
     alt: "카페에서 마신 커피 사진",
-    hashtags: [], // 빈 배열 -> 태그 없음
+    hashtags: [],
   },
   {
     id: 5,
@@ -51,7 +49,7 @@ const posts = [
   },
   {
     id: 6,
-    username: "yuna", // yuna 글이 여기까지 2개
+    username: "yuna",
     caption: "오늘도 5km",
     likes: 940,
     image: "https://picsum.photos/seed/post7/600/600",
@@ -70,7 +68,7 @@ const posts = [
   },
   {
     id: 8,
-    username: "yuna", // yuna 글 3개째. 필터하면 yuna만 3장이 나옴
+    username: "yuna",
     caption: "러닝화 새로 샀다",
     likes: 1580,
     image: "https://picsum.photos/seed/post9/600/600",

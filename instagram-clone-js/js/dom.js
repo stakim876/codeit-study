@@ -1,100 +1,194 @@
+const card = document.querySelector('article');
+
+console.log('만들기 전:', card.querySelector('.post-location'));
+
+// step1 태그 생성
+const line = document.createElement('p');
+line.classList.add('post-location');
+line.textContent = '여의도 한강공원';
+
+console.log(line);
+
+console.log('만든 직후:', card.querySelector('.post-location'));
+console.log('만든 요소의 부모:', line.parentElement);
+
+const header = card.querySelector('.post-header');
+
+const headerTitle = header.querySelector('p');
+
+headerTitle.after(line);
+
+console.log('붙인 뒤:', card.querySelector('.post-location').textContent);
+
+for (const child of header.children) {
+  console.log(`${child.tagName}, ${child.className || '(클래스 없음)'}`);
+}
+
 // instagrem-clon-js/js/dom.js
-const caption = document.querySelector('figcaption');
-console.log('캡션 글자', caption.textContent);
+const box = document.querySelector(".hashtags");
+const first = box.querySelector(".hashtag-chip");
 
-const username = document.querySelector('.post-header p');
-console.log('작성자:', username.textContent);
+const mark = (text) => {
+  const span = document.querySelector("span");
+  span.textContent = text;
+  return span;
+};
 
-caption.textContent = "새벽 러닝 🌙";
-username.textContent = 'seungtae';
+// box.prepend(mark("[prepend]"));
+// box.append(mark("[append]"));
+// first.before(mark("[before]"));
+// first.after(mark("[after]"));
 
-// step2
+console.log([...box.children].map((el) => el.textContent).join(" "));
 
-const homeMenu = document.querySelector('.nav-menu li');
-console.log(homeMenu.textContent);
-console.log(homeMenu.innerHTML);
+// step 3
+// instagrem-clon-js/js/dom.js
+const quiet = posts[1];
+const chips = card.querySelectorAll(".hashtag-chip");
 
-caption.innerHTML = '<b>굵게</b>';
-console.log('글자로 넣으면:', caption.innerHTML);
+console.log(`${quiet.username} 님 태그${quiet.hashtags.length}개 · 화면 칩${chips.length}칸`);
 
-caption.innerHTML = '<b>굵게</b>';
-console.log('태그로 넣으면:', caption.textContent);
-
-console.log('자식 태그:', caption.firstChild.nodeName);
-
-// step3
-const comment =
-'<img src="없는파일" onerror="console.log(\'남의 코드가 돌았다\')">';
-
-// caption.innerHTML = comment;
-
-// step4
-const photo = document.querySelector('figure img');
-console.log(photo.getAttribute('alt'));
-console.log(
-  document.querySelector('.post-actions').children[1].getAttribute('src'),
-);
-
-photo.setAttribute(
-  'src',
-  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVTQySOMYofWD4gd7oyenqLBozcGn9NGicI9iTYXDNfw&s=10',
-);
-
-photo.setAttribute('alt', '귀여운 상어 사진');
-
-photo.setAttribute('alt', '상어는 넘무 기여워~~~');
-
-const more = document.document.querySelector('.more-btn');
-console.log('type 속성이 있나:', more.hasAttribute('type'));
-more.removeAtteribute('type');
-console.log('떼고 나면:', more.hasAttribute('type'));
-
-// step5
-console.log(more.getAttribute('class'));
-
-const label= document.querySelector('.sr-only');
-console.log('라벨 글자:', label.textContent);
-console.log('sr-only 가 붙어 있나:', label.classList.contains('sr-only'));
-
-console.log('화면에서 차지하는 너비:', label.offsetwidth);
-
-label.classList.add('sr-only');
-console.log('클래스를 뗀 뒤 1픽셀보다 넓은가:', label.offsetwidth > 1);
-
-label.classList.add('sr-only');
-console.log('다시 붙인 뒤 너비:', label.offsetwidth);
-
-const chip = document.querySelector('.hashtag-chip');
-
-chip.addEventListener('click', () =>{
-  chip.classList.toggle('my-chip');
+chips.forEach((chip, index) => {
+  if (index < quiet.hashtags.length) {
+    chip.textContent = '#${quiet.hashtags[index]}';
+  } else {
+    chip.remove();
+  }
 });
 
-// step7
-// article 태그, post: 피드게시물 1개의 데이터
+console.log('지운 뒤 남은 칩:${card.querySelectorAll(".hashtag-chip").length칸');
+console.log([...card.querySelectorAll(".hashtag-chip")].map((chip) => chip.textContent).join(" "));
+
+
+// step 4
+const fillTags  = (article, hashtags) => {
+  const box = article.querySelector('.hashtags');
+
+  for (const old of box.querySelectorAll('.hashtag-chip')) {
+    old.remove();
+  }
+
+  for (const tag of hashtags) {
+    const chip = document.createElement('span');
+    chip.classList.add('hashtag-chip');
+    chip.textContent = '#${tag}';
+    box.append(chip);
+  }
+};
+
+fillTags(card, posts[4],hashtags);
+
+const show = (post) => {
+  fillTags(card, post.hashtags);
+  const chips = [...card.querySelectorAll('.hashtag-chip')];
+  const shown = 
+    chips.length === 0
+    ? '(없음)'
+    : chips.map((chip) => chip.textContent).join(' ');
+  console.log(
+    `${post.username} 태그${post.hashtags.length}개 → 칩${chips.length}칸${shown}`,
+  );  
+};
+
+show(posts[2]);
+
+const makeLink = (url, text) => {
+  const link = document.childElement('a');
+  link.setAttribute('href', url);
+  link.textContent = text;
+  box.append(link);
+};
+
+makeLink('https://www.google.com', '구글로 이동');
+makeLink('https://www.github.com', '깃허브로 고고고~');
+
+
+// box.innerHTML += '<a id=${userId} href="https://www.naver.com">네이버로 이동</a>';
+
+
+// step 7
+const cardShell = `
+  <header class="post-header">
+    <img alt="" />
+    <p></p>
+    <button type="button" class="more-btn">⋯</button>
+  </header>
+
+  <figure>
+    <img alt="" />
+    <figcaption></figcaption>
+  </figure>
+
+  <div class="post-actions">
+    <button type="button" class="icon-btn">♡</button>
+    <button type="button" class="icon-btn">💬</button>
+    <button type="button" class="icon-btn">↗</button>
+  </div>
+
+  <div class="hashtags"></div>
+`;
+
+const fillLocation = (article, location) => {
+  const place = location?.name;
+   
+  if (place) {
+    const line = document.createElement('p');
+    line.classList.add('post-location');
+    line.textContent = place;
+    article.querySelector('.post-header p').after(line);
+  }
+};
+
 const fillPost = (article, post) => {
   article.querySelector('.post-header p').textContent = post.username;
 
   const avatar = article.querySelector('.post-header img');
   avatar.setAttribute(
-    'sec',
+    'src',
      `https://picsum.photos/seed/${post.username}/40/40`,
   );
-  avatar.setAttribute('alt', `${post.username} 프로필 사진`);
+  avatar.setAttribute('alt', '${post.username} 프로필 사진');
 
-  const photo = article.querySelector('figure img');
+  const photo = article.querySelector('fiaure img');
   photo.setAttribute('src', post.image);
   photo.setAttribute('alt', post.alt);
 
   article.querySelector('figcaption').textContent = post.caption;
 
-  article.querySelectorAll('.hashtag-chip').forEach((chip, index) => {
-    chip.textContent = '#${post.hashtags[index]}';
-  });
+  // article.querySelectorAll('.hashtag-chip').forEach((chip, index) => {
+  //   chip.textContent = `#${post.hashtags[index]}`;
+  // });
 };
 
-const card = document.querySelector('article');
-fillPost(card, renked[3]);
+const createCard = (post) => {
+  const article = document.createElement('article');
+  article.innerHTML = cardShell;
+
+  fillPost(article, post);
+  fillTags(article, post.hashtags);
+  return article;
+};
+
+const feedMain = document.querySelector('main');
+feedMain.innerHTML = '';
+
+for (const post of posts) {
+  feedMain.append(createCard(post));
+}
 
 
-
+const cards = [...feedMain.querySelectorAll('article')];
+const mismatched = cards.filter(
+  (article, index) =>
+    article.querySelectorAll('.hashtag-chip').length !==
+  posts[index].hashtags.length,
+);
+const leaked = [...feedMain.querySelectorAll('.hashtag-chip')].filter((chip) =>
+  chip.textContent.includes('underfined'),
+);
+console.log('--- 피드를 그렸어요 ---');
+console.log(`데이터${posts.length}장 · 화면${cards.length}장`);
+console.log(`칸이 남거나 모자란 카드${mismatched.length}장`);
+console.log(
+  `위치 줄${feedMain.querySelectorAll('.post-location').length}장 · 화면에 뜬 #undefined${leaked.length}개`,
+);
