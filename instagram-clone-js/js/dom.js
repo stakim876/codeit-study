@@ -50,7 +50,7 @@ console.log(`${quiet.username} 님 태그${quiet.hashtags.length}개 · 화면 �
 
 chips.forEach((chip, index) => {
   if (index < quiet.hashtags.length) {
-    chip.textContent = '#${quiet.hashtags[index]}';
+    chip.textContent = `#${quiet.hashtags[index]}`;
   } else {
     chip.remove();
   }
@@ -71,12 +71,12 @@ const fillTags  = (article, hashtags) => {
   for (const tag of hashtags) {
     const chip = document.createElement('span');
     chip.classList.add('hashtag-chip');
-    chip.textContent = '#${tag}';
+    chip.textContent = `#${tag}`;
     box.append(chip);
   }
 };
 
-fillTags(card, posts[4],hashtags);
+fillTags(card, posts[4].hashtags);
 
 const show = (post) => {
   fillTags(card, post.hashtags);
@@ -93,7 +93,7 @@ const show = (post) => {
 show(posts[2]);
 
 const makeLink = (url, text) => {
-  const link = document.childElement('a');
+  const link = document.createElement('a');
   link.setAttribute('href', url);
   link.textContent = text;
   box.append(link);
@@ -147,11 +147,13 @@ const fillPost = (article, post) => {
     'src',
      `https://picsum.photos/seed/${post.username}/40/40`,
   );
-  avatar.setAttribute('alt', '${post.username} 프로필 사진');
+  avatar.setAttribute('alt', `${post.username} 프로필 사진`);
+  useImageFallback(avatar, post.username, 40);
 
-  const photo = article.querySelector('fiaure img');
+  const photo = article.querySelector('figure img');
   photo.setAttribute('src', post.image);
   photo.setAttribute('alt', post.alt);
+  useImageFallback(photo, post.username, 600);
 
   article.querySelector('figcaption').textContent = post.caption;
 
