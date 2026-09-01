@@ -77,14 +77,16 @@ const fillPost = (article, post) => {
 
   const avatar = article.querySelector('.post-header img');
   avatar.setAttribute(
-    'sec',
+    'src',
      `https://picsum.photos/seed/${post.username}/40/40`,
   );
   avatar.setAttribute('alt', `${post.username} 프로필 사진`);
+  useImageFallback(avatar, post.username, 40);
 
   const photo = article.querySelector('figure img');
   photo.setAttribute('src', post.image);
   photo.setAttribute('alt', post.alt);
+  useImageFallback(photo, post.username, 600);
 
   article.querySelector('figcaption').textContent = post.caption;
 
@@ -94,7 +96,7 @@ const fillPost = (article, post) => {
 };
 
 const card = document.querySelector('article');
-fillPost(card, renked[3]);
+fillPost(card, ranked[3]);
 
 
 
