@@ -1,15 +1,15 @@
 // 피드 페이지가 열리면 이 배열이 메모리에 만들어짐
-// posts.length → 8  글 8개가 준비된 상태
+// posts.lenght -> 8 글 8개가 준비된 상태
 // 아직 화면에 그리는 코드는 없어서, 보이는 건 HTML에 박힌 게시물 1개뿐
 const posts = [
   {
     id: 1,
-    username: "yuna", // posts[0].username → "yuna"  첫 글 작성자
+    username: "yuna", // posts[0].username -> "yuna" 첫 글 작성자
     caption: "새벽 러닝 🌙",
-    likes: 2100, // posts[0].likes → 2100  좋아요 숫자
+    likes: 2100, // pots[0].likes -> 2100 좋아요 숫자
     image: "https://picsum.photos/seed/post4/600/600",
     alt: "새벽 한강 산책로 사진",
-    location: { name: "여의도한강공원", city: "서울" }, // posts[0].location.city → "서울"
+    location: { name: "여의도한강공원", city: "서울" }, // posts[0].location.city -> "서울"
     hashtags: ["새벽러닝", "한강", "러닝스타그램"],
   },
   {
@@ -19,7 +19,7 @@ const posts = [
     likes: 88,
     image: "https://picsum.photos/seed/post5/600/600",
     alt: "가로등이 켜진 밤길 사진",
-    hashtags: ["밤산책"], // location 없음 → posts[1].location 은 undefined
+    hashtags: ["밤산책"], // location 없음 -> posts[1].location 은 underfind
   },
   {
     id: 3,
@@ -37,7 +37,7 @@ const posts = [
     likes: 0, // 좋아요 없음
     image: "https://picsum.photos/seed/post2/600/600",
     alt: "카페에서 마신 커피 사진",
-    hashtags: [], // 빈 배열 → 태그 없음
+    hashtags: [], // 빈 배열 -> 태그 없음
   },
   {
     id: 5,
@@ -79,3 +79,8 @@ const posts = [
     hashtags: ["러닝", "러닝스타그램"],
   },
 ];
+
+// 제일 좋아요가 많은 게시물 뽑기
+// 좋아요가 많은 순으로 내림차 정렬
+const ranked = [...posts].sort((a, b) => b.likes - a.likes);
+// console.log(ranked);
