@@ -9,7 +9,7 @@ const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-
 // 현재 추가된 재료들을 저장하는 배열 (상태 관리)
 let ingredients = [];
 
-// ========== DOM 요소 캐싱 ========== //
+// ============ DOM 요소 캐싱 ========== //
 
 // 스크립트 시작 시 필요한 모든 HTML 요소를 미리 찾아 변수에 담아둡니다.
 const $ingredientForm = document.querySelector('#ingredient-form');
@@ -19,17 +19,17 @@ const $getRecipeBtn = document.querySelector('#get-recipe-btn');
 const $loading = document.querySelector('#loading');
 const $recipeOutput = document.querySelector('#recipe-output');
 
-// ========== 핵심 로직 함수 ========== //
+// ========= 핵심 로직 함수 ========== //
 
-/**
+/** 
  * @description 현재 ingredients 배열의 내용을 바탕으로 재료 태그를 화면에 렌더링합니다.
  */
 function renderTags() {
   // 1. 기존 태그들을 모두 지웁니다.
   $ingredientList.innerHTML = '';
-
-  // 2. ingredients 배열을 순회하며 각 재료에 대한 태그를 생성합니다.
-  ingredients.forEach((ingredient) => {
+  
+  // 2. ingredients 배열을 순회하며 각 제료에 대한 태그를 생성합니다.
+  ingredients.forEach((ingredient)=>{
     const $tag = document.createElement('div');
     $tag.className = 'tag-item';
 
@@ -45,55 +45,55 @@ function renderTags() {
     $tag.append($tagText);
     $tag.append($removeBtn);
     $ingredientList.append($tag);
-  });
+  }); 
 }
 
 /**
- * @description Gemini API에게 보낼 프롬프트를 생성합니다.
+ * @description Gemini API에게 보낼 프롤프트를 생성합니다.
  * @param {string[]} items - 재료 목록 배열
  * @returns {string} - 완성된 프롬프트 문자열
  */
 function generatePrompt(items) {
-  // AI가 더 좋은 답변을 생성하도록, 역할을 부여하고 명확하게 지시합니다.
-  const prompt = `
-당신은 세계 최고의 요리사입니다. 아래의 재료들을 활용해서 만들 수 있는 최고의 요리 레시피를 하나만 추천해주세요.
-응답은 반드시 아래에 명시된 JSON 형식에 맞춰서, 다른 부가 설명 없이 JSON 데이터만 반환해야 합니다.
+    // AI가 더 좋은 답변을 생성하도록, 역할을 부여하고 명확하게 지시합니다.
+    const prompt = `
+  당신은 세계 최고의 요리사입니다. 아래의 재료들을 활용해서 만들 수 있는 최고의 요리 레시피를 하나만 추천해주세요.
+  응답은 반드시 아래에 명시된 JSON 형식에 맞춰서, 다른 부가 설명 없이 JSON 데이터만 반환해야 합니다.
+  
+  [사용할 재료]
+  ${items}
 
-[사용할 재료]
-${items}
-
-[출력 JSON 형식]
-{
-  "recipeName": "요리 이름",
-  "introduction": "요리에 대한 한 줄 소개",
-  "ingredients": ["재료1", "재료2", "재료3"],
-  "instructions": [
-    "1단계: 요리 순서 설명",
-    "2단계: 요리 순서 설명",
-    "3단계: 요리 순서 설명"
-  ],
-  "tip": "요리를 더 맛있게 만드는 꿀팁"
-}
-`;
-  return prompt;
+  [출력 JSON 형식]
+  {
+    "recipeName": "요리 이름",
+    "introduction": "요리에 대한 한 줄 소개",
+    "ingredients": ["재료1", "재료2", "재료3"],
+    "instructions": [
+       "1단계: 요리 순서 설명",
+       "2단계: 요리 순서 설명",
+       "3단계: 요리 순서 설명", 
+    ],
+    "tip": "요리를 더 맛있게 만드는 꿀팁"
+  }
+  `;
+    return prompt;
 }
 
 // app.js 파일에 아래 두 함수를 추가하거나 기존 함수를 교체해주세요.
 
 /**
- * @description 파싱된 레시피 데이터 객체를 받아서 화면에 동적으로 HTML 요소를 생성합니다.
- * @param {object} data - 파싱된 레시피 데이터
+ * @description 파상된 레시피 데이터 객체를 받아서 화면에 동적으로 HTML 요소를 생성합니다.
+ * @param {object} data - 파상된 레시피 데이터
  */
 function renderRecipe(data) {
-  // 1. 기존 결과 영역을 비웁니다.
-  $recipeOutput.innerHTML = '';
+    // 1. 기존 결과 영역을 비웁니다.
+    $recipeOutput.innerHTML = '';
 
-  // 2. 각 데이터에 맞는 HTML 요소를 생성합니다.
-  const $recipeName = document.createElement('h2');
-  $recipeName.textContent = data.recipeName;
+    // 2. 각 데이터에 맞는 HTML 요소를 생성합니다.
+    const $rectipeName = document.createElement('h2');
+    $rectipeName.textContent =data.$rectipeName;
 
-  const $introduction = document.createElement('p');
-  $introduction.textContent = data.introduction;
+    const $introduction = document.createElement('p');
+    $introduction.textContent = data.introduction;
   $introduction.className = 'introduction'; // (선택) CSS 스타일링을 위한 클래스
 
   const $ingredientsTitle = document.createElement('h3');

@@ -42,7 +42,7 @@ ol, ul {
     padding-bottom: 20px;
 }
 
-.app-header h1 {
+.app-header p {
     font-size: 28px;
     font-weight: 700;
     color: var(--text-color);
@@ -120,7 +120,7 @@ ol, ul {
     color: white;
     font-size: 16px;
     cursor: pointer;
-    font-weight: bold;
+    font-weight: bold;  
 }
 
 .get-recipe-button {
@@ -134,7 +134,7 @@ ol, ul {
     border-radius: 8px;
     cursor: pointer;
     margin-top: 20px;
-    transition: background-color 0.2s;
+    transition:  background-color 0.2s;
 }
 
 .get-recipe-button:hover {
@@ -153,7 +153,7 @@ ol, ul {
 }
 
 .loading i {
-    font-size: 2.5em;
+    font-size: 2.5rem;
     color: var(--primary-color);
     animation: spinner-rotate 1.5s infinite linear;
 }
@@ -165,7 +165,7 @@ ol, ul {
 
 .recipe-card {
     background-color: #fff9f8;
-    border: 1px solid #ffe8e6;
+    border: 1PX solid #ffe8e6;
     border-radius: 8px;
     padding: 30px;
     white-space: pre-wrap; /* Gemini가 보내준 줄바꿈을 그대로 표시 */
@@ -195,16 +195,23 @@ ol, ul {
     padding-left: 0;
 }
 
-.recipe-card li {
-    margin-bottom: 8px;
-}
-
 .hidden {
     display: none;
 }
 
 /* 스피너 애니메이션 */
 @keyframes spinner-rotate {
-    from { transform: rotate(0); }
+    form { transform: rotate(0); }
     to { transform: rotate(360deg); }
 }
+
+
+
+
+
+
+
+
+
+
+
