@@ -1,9 +1,9 @@
 // instagram-clone-js/js/two-failures.js
 // 서버는 있는데 주소가 틀린 경우 vs 서버 자체가 없는 경우
-const tryLoad = async (URL, label) => {
+const tryLoad = async (url, label) => {
   try {
-    const respanse = await fetch(url);
-    const body = await respanse.json();
+    const response = await fetch(url);
+    const body = await response.json();
 
     console.log(
       `${label}  — 여기까지 왔어요. 게시물 목록인가${Array.isArray(body)}`,  

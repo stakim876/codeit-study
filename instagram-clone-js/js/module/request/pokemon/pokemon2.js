@@ -110,7 +110,7 @@ let isLoading = false;
 
 // ===== 함수 정의 ===== //
 
-// 목록만 받으면 이름·url뿐이라, 각자 url을 동시에 다시 요청해서 이미지까지 받음
+// 포켓몬 목록을 화면에 그리는 함수
 const renderPokemonList = async (pokemonList) => {
 
   pokeContainer.innerHTML = '';
@@ -122,6 +122,8 @@ const renderPokemonList = async (pokemonList) => {
 
 
   for (const pokemon of detailList) {
+
+    // 각 포켓몬의 상세정보를 다시 서버에 재요청
     const imgSrc = pokemon.sprites.front_default;
 
     const newDiv = document.createElement('div');
@@ -135,7 +137,7 @@ const renderPokemonList = async (pokemonList) => {
   }
 };
 
-// offset부터 limit마리 목록을 받아 그린 뒤 스피너를 끔
+// 포켓몬 목록을 서버에서 불러오는 함수
 async function getPokemon() {
 
 
@@ -154,13 +156,14 @@ async function getPokemon() {
   loadingSpinner.style.opacity = '0';
 }
 
-// 이름으로 상세를 다시 요청. 오는 동안 스켈레톤, 오면 내용으로 교체
+// 모달 열기 함수
 const openModal = async (pokemonName) => {
   modal.style.display = 'flex';
   overlay.style.display = 'flex';
   // 모달이 열릴 때 뒷배경 스크롤링 방지
   document.body.style.overflow = 'hidden';
 
+  // 명시적으로 스켈레톤을 켜고 컨텐츠를 숨김
   modalSkeleton.style.display = 'flex';
   modalContent.style.display = 'none';
 
@@ -168,6 +171,7 @@ const openModal = async (pokemonName) => {
 
   // 지금 클릭한 포켓몬이 누구?
   // console.log('클릭한 포켓몬: ', pokemonName);
+  // 포켓몬 상세 데이터를 fetching
   const res = await fetch(`${url}/${pokemonName}`);
   const pokemonData = await res.json();
   const { name, height, weight, base_experience, types, sprites } = pokemonData;
@@ -177,13 +181,14 @@ const openModal = async (pokemonName) => {
   modalImage.src = sprites.front_default;
   modalDetails.textContent = `키: ${height} | 무게: ${weight} | 경험치: ${base_experience}`;
 
-  // 타입 이름으로 아이콘 주소를 찾아 붙임. 없으면 ?. 로 넘어감
+  // 타입 데이터 삽입
   const typeNames = types.map(t => t.type.name);
 
   modalTypes.innerHTML = '';
   for (const typeName of typeNames) {
     const liTag = document.createElement('li');
 
+    // 이 타입명에 해당하는 아이콘 url을 탐색하기
     const typeImageUrl = typeImages.find(ti => ti.name === typeName)?.url;
 
     liTag.innerHTML = `<img src="${typeImageUrl}">`;
@@ -214,12 +219,14 @@ const closeModal = () => {
 modalCloseBtn.addEventListener('click', closeModal);
 overlay.addEventListener('click', closeModal);
 
-// 다음: offset을 limit만큼 밀고 다시 요청. 로딩 중이면 무시
+// 다음 버튼 클릭시
 nextBtn.addEventListener('click', event => { 
 
   if (isLoading) return;
 
+  // 이전버튼을 활성화
   prevBtn.removeAttribute(DISABLED);
+  // offset을 조정
   offset += limit;
   if (offset > pokeCount) {
     pokeContainer.textContent = '다음 포켓몬 데이터가 없습니다.';
@@ -229,12 +236,13 @@ nextBtn.addEventListener('click', event => {
   getPokemon();
 });
 
-// 이전: offset을 limit만큼 당기고 다시 요청
-prevBtn.addEventListener('click', event => { 
+// 이전 버튼 클릭시
+prevBtn.addEventListener('click', event => {
 
   if (isLoading) return;
 
   nextBtn.removeAttribute(DISABLED);
+  // offset을 조정
   offset -= limit;
   if (offset < 0) {
     offset = 0;
@@ -245,15 +253,16 @@ prevBtn.addEventListener('click', event => {
   getPokemon();
 });
 
-// 카드 안 어디를 눌러도 .pokemon까지 올라가서 이름으로 모달을 염
-pokeContainer.addEventListener('click', event => { 
+// 포켓몬을 클릭하면 실행할 이벤트
+pokeContainer.addEventListener('click', event => {
   const pokeDiv = event.target.closest('.pokemon');
 
   if (!pokeDiv) return;
 
+  // 모달을 열어주기
   openModal(pokeDiv.querySelector('img').alt);
 });
 
 
-// 시작하자마자 첫 페이지 요청
+// ===== 초기 실행 코드 ===== //
 getPokemon();

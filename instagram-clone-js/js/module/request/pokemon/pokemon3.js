@@ -123,6 +123,8 @@ const renderPokemonList = async (pokemonList) => {
 
 
   for (const pokemon of detailList) {
+
+    // 각 포켓몬 상세정보를 다시 서버에 재요청
     const imgSrc = pokemon.sprites.front_default;
 
     const newDiv = document.createElement('div');
@@ -136,10 +138,11 @@ const renderPokemonList = async (pokemonList) => {
   }
 };
 
-// 한 페이지 받아 붙인 뒤, 다음 요청을 위해 offset을 밀어 둠
+// 포켓몬 목록을 서버에서 불러오는 함수
 async function getPokemon() {
 
 
+// 로딩 스피너를 활성화
   isLoading = true;
   loadingSpinner.style.opacity = '1';
 
@@ -148,6 +151,7 @@ async function getPokemon() {
   pokeCount = count;
   hasNext = next;
 
+  // 화면에 포켓몬 그리기
   await new Promise(resolve => setTimeout(resolve, 1000));
   renderPokemonList(results);
 
@@ -158,12 +162,14 @@ async function getPokemon() {
   offset += limit;
 }
 
-// 이름으로 상세를 다시 요청. 오는 동안 스켈레톤, 오면 내용으로 교체
+// 모달 열기 함수
 const openModal = async (pokemonName) => {
   modal.style.display = 'flex';
   overlay.style.display = 'flex';
+  // 모달이 열릴 때 뒷배경 스크롤링 방지
   document.body.style.overflow = 'hidden';
 
+  // 명시적으로 스켈레톤을 켜고 컨텐츠를 숨김
   modalSkeleton.style.display = 'flex';
   modalContent.style.display = 'none';
 
@@ -171,6 +177,7 @@ const openModal = async (pokemonName) => {
 
   // 지금 클릭한 포켓몬이 누구?
   // console.log('클릭한 포켓몬: ', pokemonName);
+  // 포켓몬 상세 데이터를 fetching
   const res = await fetch(`${url}/${pokemonName}`);
   const pokemonData = await res.json();
   const { name, height, weight, base_experience, types, sprites } = pokemonData;
@@ -180,13 +187,14 @@ const openModal = async (pokemonName) => {
   modalImage.src = sprites.front_default;
   modalDetails.textContent = `키: ${height} | 무게: ${weight} | 경험치: ${base_experience}`;
 
-  // 타입 이름으로 아이콘 주소를 찾아 붙임. 없으면 ?. 로 넘어감
+  // 타입 데이터 삽입
   const typeNames = types.map(t => t.type.name);
 
   modalTypes.innerHTML = '';
   for (const typeName of typeNames) {
     const liTag = document.createElement('li');
 
+    // 이 타입명에 해당하는 아이콘 url을 탐색하기
     const typeImageUrl = typeImages.find(ti => ti.name === typeName)?.url;
 
     liTag.innerHTML = `<img src="${typeImageUrl}">`;
@@ -218,29 +226,31 @@ modalCloseBtn.addEventListener('click', closeModal);
 overlay.addEventListener('click', closeModal);
 
 
-// 카드 안 어디를 눌러도 .pokemon까지 올라가서 이름으로 모달을 염
+// 포켓몬을 클릭하면 실행할 이벤트
 pokeContainer.addEventListener('click', event => { 
   const pokeDiv = event.target.closest('.pokemon');
 
   if (!pokeDiv) return;
 
+  // 모달을 열어주기
   openModal(pokeDiv.querySelector('img').alt);
 });
 
 
-// 스피너가 화면에 보이면 다음 페이지. next가 없으면 감시 끊음
-const observer = new IntersectionObserver((entries) => { 
-  if (entries[0].isIntersecting) {
-    if (hasNext === null) {
-      loadingSpinner.innerHTML = `<p>모든 포켓몬을 다 봤어요</p>`;
-      observer.unobserve(loadingSpinner);
-      return;
+// ===== 무한스크롤링 옵저버 설정 ===== // 
+  const observer = new IntersectionObserver((entries) =>{
+    if (entries[0].isIntersecting) {
+      if (hasNext === null) {
+        loadingSpinner.innerHTML = `<p>모든 포켓몬을 다 봤어요</p>`;
+        observer.unobserve(loadingSpinner);
+        return;
+      }
+      getPokemon();
     }
-    getPokemon();
-  }
-});
+  });
 
+// 옵저버의 감시 대상 감시병을 붙임.  
 observer.observe(loadingSpinner);
 
-// 첫 getPokemon()은 안 부름. 스피너가 보이면 옵저버가 첫 요청을 함
+// ===== 초기 실행 코드 ===== //
 // getPokemon();
