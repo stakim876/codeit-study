@@ -1,124 +1,17 @@
 // instagram-clone-js/js/dom.js
 import { showCommentError, showToast } from './module/toast.js';
 import { saveFeed, loadFeed } from './interactive/chap06/storage.js';
-
-// 게시물 카드 뼈대
-const cardShell = `
-  <header class="post-header">
-    <img alt="" />
-    <p></p>
-    <button type="button" class="more-btn">⋯</button>
-  </header>
-
-  <figure>
-    <img alt="" />
-    <figcaption></figcaption>
-  </figure>
-
-  <div class="post-actions">
-    <button type="button" class="icon-btn like-btn">♡</button>
-    <button type="button" class="icon-btn comment-btn">💬</button>
-    <button type="button" class="icon-btn share-btn">↗</button>
-  </div>
-
-  <p class="like-count"></p>
-
-  <div class="hashtags"></div>
-
-  <ul class="comment-list"></ul>
-
-  <footer>
-    <form class="comment-form" action="#" method="post">
-      <label class="sr-only">댓글 달기</label>
-      <textarea name="comment" rows="2" placeholder="댓글 달기..."></textarea>
-      <button type="submit" class="btn-primary">게시</button>
-    </form>
-  </footer>
-`;
-
-const fillLocation = (article, location) => {
-  const place = location?.name;
-
-  if (place) {
-    const line = document.createElement('p');
-    line.classList.add('post-location');
-    line.textContent = place;
-    article.querySelector('.post-header p').after(line);
-  }
-};
-
-const fillTags = (article, hashtags) => {
-  const box = article.querySelector('.hashtags');
-
-  for (const old of box.querySelectorAll('.hashtag-chip')) {
-    old.remove();
-  }
-
-  for (const tag of hashtags) {
-    const chip = document.createElement('span');
-    chip.classList.add('hashtag-chip');
-    chip.textContent = `#${tag}`;
-    box.append(chip);
-  }
-};
-
-const fillComments = (article, comments) => {
-  const list = article.querySelector('.comment-list');
-
-  for (const old of list.querySelectorAll('li')) {
-    old.remove();
-  }
-
-  for (const text of comments) {
-    const line = document.createElement('li');
-    line.textContent = text;
-    list.append(line);
-  }
-};
-
-// 한 장 데이터 넣기
-const fillPost = (article, post) => {
-  article.setAttribute('data-id', post.id);
-  article.setAttribute('id', `post-${post.id}`);
-  article.querySelector('.post-header p').textContent = post.username;
-
-  const avatar = article.querySelector('.post-header img');
-  avatar.setAttribute(
-    'src',
-    `https://picsum.photos/seed/${post.username}/40/40`,
-  );
-  avatar.setAttribute('alt', `${post.username} 프로필 사진`);
-
-  const photo = article.querySelector('figure img');
-  photo.setAttribute('src', post.image);
-  photo.setAttribute('alt', post.alt);
-
-  article.querySelector('figcaption').textContent = post.caption;
-  article.querySelector('.like-count').textContent = `좋아요 ${post.likes}개`;
-  article.querySelector('.like-btn').textContent = post.liked ? '♥' : '♡';
-
-  const box = article.querySelector('.comment-form textarea');
-  box.setAttribute('id', `comment-${post.id}`);
-  article
-    .querySelector('.comment-form label')
-    .setAttribute('for', `comment-${post.id}`);
-
-  fillLocation(article, post.location);
-  fillTags(article, post.hashtags);
-  fillComments(article, post.comments);
-};
-
-// 카드 만들기
-const createCard = (post) => {
-  const article = document.createElement('article');
-  article.innerHTML = cardShell;
-  fillPost(article, post);
-  return article;
-};
+import { createCard } from './module/card.js';
+import { loadComments, loadPosts, loadProfile, createComment }
+  from './module/api.js';
+import { store } from './module/state.js';
+ 
 
 const feedMain = document.querySelector('main');
 
-// 헤더 높이를 CSS에 맞춤
+// 고정 헤더 높이를 CSS 에 알려준다.
+// showProfile() 이 헤더 안에 프로필 줄을 붙이면 헤더가 그만큼 커지는데,
+// CSS 혼자서는 그 변화를 알 수 없어 첫 게시물이 헤더 밑에 깔린다.
 const siteHeader = document.querySelector('.site-header');
 
 const syncHeaderHeight = () => {
@@ -128,13 +21,13 @@ const syncHeaderHeight = () => {
   );
 };
 
+// observe() 하는 순간 한 번 실행되고, 이후 높이가 바뀔 때마다 다시 실행된다
 new ResizeObserver(syncHeaderHeight).observe(siteHeader);
 
 const sentinel = document.createElement('div');
 sentinel.classList.add('scroll-sentinel');
 feedMain.append(sentinel);
 
-// 화면 다시 그리기
 const render = (list) => {
   for (const old of feedMain.querySelectorAll('article')) {
     old.remove();
@@ -145,91 +38,17 @@ const render = (list) => {
   }
 };
 
-const describeStatus = (status) => {
-  if (status === 404) {
-    return '그런 건 없대요';
-  }
 
-  if (status >= 500) {
-    return '서버가 아픈가 봐요. 잠시 뒤에 다시 해주세요';
-  }
 
-  return `서버가 ${status} 로 답했어요`;
-};
-
-// 서버에서 게시물 가져오기
-const loadPosts = async (page) => {
-  const response = await fetch(
-    `http://localhost:3001/posts?_page=${page}&_per_page=3`,
-    {
-      signal: AbortSignal.timeout(2000),
-    },
-  );
-
-  if (!response.ok) {
-    throw new Error(
-      `게시물을 못 받았어요 — ${describeStatus(response.status)}`,
-    );
-  }
-
-  const envelope = await response.json();
-
-  return {
-    posts: envelope.data.map((post) => ({ ...post, id: Number(post.id) })),
-    next: envelope.next,
-  };
-};
-
-// 서버에서 프로필 가져오기
-const loadProfile = async () => {
-  const response = await fetch('http://localhost:3001/users/1');
-
-  if (!response.ok) {
-    throw new Error(`계정을 못 받았어요 — ${describeStatus(response.status)}`);
-  }
-
-  return response.json();
-};
-
-// 댓글 서버에 보내기
-const createComment = async (postId, text) => {
-  const response = await fetch('http://localhost:3001/comments', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ postId, username: 'jaehoon', text }),
-  });
-
-  if (!response.ok) {
-    throw new Error(`댓글을 못 보냈어요 — ${describeStatus(response.status)}`);
-  }
-
-  return response.json();
-};
-
-// 서버에서 댓글 가져오기
-const loadComments = async () => {
-  const response = await fetch('http://localhost:3001/comments');
-
-  if (!response.ok) {
-    throw new Error(`댓글을 못 받았어요 — ${describeStatus(response.status)}`);
-  }
-
-  return response.json();
-};
-
-let feedPosts = [];
-
-// 화면에 댓글 추가
 const addComment = (id, text) => {
-  feedPosts = feedPosts.map((post) =>
+  store.feedPosts = store.feedPosts.map((post) =>
     post.id === id ? { ...post, comments: [...post.comments, text] } : post,
   );
-  render(feedPosts);
+  render(store.feedPosts);
 };
 
-// 좋아요 켜고 끔 + 로컬에 저장
 const toggleLike = (id) => {
-  feedPosts = feedPosts.map((post) =>
+  store.feedPosts = store.feedPosts.map((post) =>
     post.id === id
       ? {
           ...post,
@@ -238,11 +57,10 @@ const toggleLike = (id) => {
         }
       : post,
   );
-  saveFeed(feedPosts);
-  render(feedPosts);
+  saveFeed(store.feedPosts);
+  render(store.feedPosts);
 };
 
-// 좋아요 / 댓글칸 포커스 / 공유
 feedMain.addEventListener('click', (event) => {
   const button = event.target.closest('.icon-btn');
 
@@ -263,7 +81,6 @@ feedMain.addEventListener('click', (event) => {
 
 let sending = false;
 
-// 댓글 제출
 feedMain.addEventListener('submit', async (event) => {
   event.preventDefault();
 
@@ -309,7 +126,6 @@ const showProfile = (profile) => {
 let myComments = [];
 let currentPage = 1;
 
-// 저장된 좋아요 + 내 댓글 합치기
 const grow = (posts) => {
   const saved = loadFeed() ?? [];
 
@@ -328,7 +144,6 @@ const grow = (posts) => {
 let loading = false;
 let hasMore = true;
 
-// 다음 페이지 붙이기
 const loadPage = async () => {
   if (loading || !hasMore) {
     return;
@@ -341,10 +156,11 @@ const loadPage = async () => {
 
     const { posts, next } = await loadPosts(currentPage);
 
-    feedPosts = [...feedPosts, ...grow(posts)];
-    render(feedPosts);
+    store.feedPosts = [...store.feedPosts, ...grow(posts)];
 
-    console.log(`화면에 ${feedPosts.length}장 · 다음 ${next}`);
+    render(store.feedPosts);
+
+    console.log(`화면에 ${store.feedPosts.length}장 · 다음 ${next}`);
 
     hasMore = next !== null;
     currentPage += 1;
@@ -355,7 +171,6 @@ const loadPage = async () => {
   }
 };
 
-// 맨 아래 보이면 다음 페이지
 const watchSentinel = () => {
   const observer = new IntersectionObserver((entries) => {
     if (entries[0].isIntersecting) {
@@ -366,7 +181,6 @@ const watchSentinel = () => {
   observer.observe(sentinel);
 };
 
-// 시작: 프로필·댓글 받고 첫 페이지
 const start = async () => {
   render([]);
 
@@ -389,6 +203,7 @@ const start = async () => {
 
   await loadPage();
   watchSentinel();
+
 };
 
 start();

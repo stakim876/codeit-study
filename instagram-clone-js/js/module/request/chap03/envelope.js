@@ -1,6 +1,6 @@
 // instagram-clone-js/js/envelope.js
 // fetch는 404여도 안 던짐. 성공/실패는 ok · status로 봄
-const peek = async (URL, label) => {
+const peek = async (url, label) => {
   const response = await fetch(url);
   
   console.log(

@@ -32,6 +32,8 @@ const renderPokemonList = async (pokemonList) => {
 
     
   for (const pokemon of detailList) {
+
+    // 각 포켓몬의 상세정보를 다시 서버에 재요청
     const imgSrc = pokemon.sprites.front_default;
 
     const newDiv = document.createElement('div');
@@ -45,11 +47,11 @@ const renderPokemonList = async (pokemonList) => {
   }
 };
 
-// offset부터 limit마리 목록을 받아 그린 뒤 스피너를 끔
+// 포켓몬 목록을 서버에서 불러오는 함수
 async function getPokemon() {
 
 
-// 포켓몬 스피너를 활성화
+// 로딩 스피너를 활성화
 isLoading = true;
 loadingSpinner.computedStyleMap.opacity = '1';
 
@@ -57,6 +59,7 @@ const res = await fetch(`${url}/?offset=${offset}&limit=${limit}`);
 const { count, results } = await res.json();
 pokeConunt = count;
 
+// 화면에 포켓몬 그리기
 renderPokemonList(results);
 
 isLoading = false;
@@ -65,13 +68,14 @@ loadingSpinner.style.opacity = '0';
 
 // ===== 이벤트 핸들러 바이딩 ===== //
 
-// 다음: offset을 limit만큼 밀고 다시 요청. 로딩 중이면 무시
+// 다음 버튼 클릭시
 nextBtn.addEventListener('click', event => {
 
     if (isLoading) return;
 
     // 이전버튼을 활성화
     prevBtn.removeAttribute(DISABLED);
+    // offset을 조정
     offset += limit;
     if (offset > pokeCount) {
       pokeContainer.textContent = '다음 포켓몬 데이터가 없습니다.';
@@ -87,6 +91,7 @@ prevBtn.addEventListener('click', event => {
     if (isLoading) return;
 
     nextBtn.removeAttribute(DISABLED);
+    // offset을 조정
     offset -= limit;
     if (offset < 0) {
       offset = 0;
