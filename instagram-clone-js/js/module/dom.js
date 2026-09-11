@@ -1,6 +1,6 @@
 // instagram-clone-js/js/dom.js
-import { showCommentError, showToast } from './module/toast.js';
-import { saveFeed, loadFeed } from './interactive/chap06/storage.js';
+import { showCommentError, showToast } from './toast.js';
+import { saveFeed, loadFeed } from '../interactive/chap06/storage.js';
 
 // 게시물 카드 뼈대
 const cardShell = `
